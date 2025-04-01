@@ -60,14 +60,14 @@ const Carousel = () => {
           <div className="absolute inset-0 bg-black/40 rounded-lg"></div>
 
           {/* Text Content */}
-          <div className="relative flex-1 pr-6 z-10">
-            <h2 className="text-lg md:text-[40px] max-w-[80%] font-bold">
+          <div className="relative flex-1 flex md:block flex-col items-center pr-6 z-10">
+            <h2 className="text-xl text-center mb-6 md:text-left md:text-[40px] max-w-[80%] font-bold">
               {slides[index].title}
             </h2>
-            <p className="text-sm md:text-[24px] mt-2">
+            <p className="text-sm text-center mb-4 md:text-left md:text-[24px] mt-2">
               {slides[index].description}
             </p>
-            <button className="absolute cursor-pointer bottom-[0] px-4 py-6 bg-[#A1CCE5] text-white rounded-lg shadow-md">
+            <button className="absolute cursor-pointer bottom-20 md:bottom-[0] px-4 py-4 md:py-6 bg-[#A1CCE5] text-white rounded-lg shadow-md">
               {slides[index].buttonText}
             </button>
           </div>
