@@ -1,7 +1,6 @@
 "use client";
-
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation"; // Get current route
+import { usePathname, useRouter } from "next/navigation"; // Import router for navigation
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGrid, FiSearch, FiSettings, FiLogOut } from "react-icons/fi";
 import { MdMap } from "react-icons/md";
@@ -10,7 +9,8 @@ import { FaBars } from "react-icons/fa";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const pathname = usePathname(); // Get current route
+  const pathname = usePathname();
+  const router = useRouter(); // Get router for navigation
 
   useEffect(() => {
     const updateView = () => setIsMobile(window.innerWidth < 1024);
@@ -25,7 +25,7 @@ const Sidebar = () => {
       <AnimatePresence>
         {isOpen && isMobile && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 "
+            className="fixed inset-0 bg-black bg-opacity-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -44,7 +44,7 @@ const Sidebar = () => {
         {/* Close Button (Only on Mobile) */}
         {isMobile && (
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(false)}
             className="absolute top-4 right-4 text-xl"
           >
             ✕
@@ -56,12 +56,14 @@ const Sidebar = () => {
           <SidebarItem
             icon={<FiGrid />}
             label="Dashboard"
+            path="/dashboard"
             active={pathname === "/dashboard"}
           />
           <SidebarItem
             icon={<MdMap />}
             label="Career Map"
-            active={pathname === "/career-map"}
+            path="/career"
+            active={pathname === "/career"}
             extra={
               <span
                 className="ml-auto text-xs text-white rounded-full px-2 py-1"
@@ -76,6 +78,7 @@ const Sidebar = () => {
           <SidebarItem
             icon={<FiSearch />}
             label="Find Jobs"
+            path="/find-jobs"
             active={pathname === "/find-jobs"}
           />
         </nav>
@@ -85,13 +88,10 @@ const Sidebar = () => {
           <SidebarItem
             icon={<FiSettings />}
             label="Settings"
+            path="/settings"
             active={pathname === "/settings"}
           />
-          <SidebarItem
-            icon={<FiLogOut />}
-            label="Logout"
-            className="text-red-500"
-          />
+          <SidebarItem icon={<FiLogOut />} label="Logout" isLogout />
         </div>
       </motion.aside>
 
@@ -110,32 +110,47 @@ const Sidebar = () => {
   );
 };
 
+interface SidebarItemProps {
+  icon: React.ReactNode;
+  label: string;
+  path?: string;
+  active?: boolean;
+  extra?: React.ReactNode;
+  isLogout?: boolean;
+}
+
 const SidebarItem = ({
   icon,
   label,
+  path,
   active,
   extra,
-  className = "",
-}: {
-  icon: React.ReactNode;
-  label: string;
-  active?: boolean;
-  extra?: React.ReactNode;
-  className?: string;
-}) => {
-  const isLogout = label === "Logout"; // Check if it's the Logout item
+  isLogout = false,
+}: SidebarItemProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (isLogout) {
+      alert("Logging out...");
+      return;
+    }
+    if (path) {
+      router.push(path);
+    }
+  };
 
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
-      className={`flex items-center gap-4 p-3  rounded-lg cursor-pointer transition-all 
+      className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all 
         ${
           active
             ? "bg-[#A1CCE5] text-white"
             : isLogout
             ? "text-red-500 hover:bg-red-100"
             : "hover:bg-[#A1CCE5] hover:text-white"
-        } ${className}`}
+        }`}
+      onClick={handleClick}
     >
       {icon}
       <span>{label}</span>

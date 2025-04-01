@@ -34,7 +34,7 @@ const platforms = [
 
 const LearningPlatforms = () => {
   return (
-    <div className="px-6 lg:ml-72 py-4">
+    <div className="px-6 lg:ml-72 py-8">
       <h2 className="text-2xl text-black md:text-left text-center font-bold mb-6">
         Upskill with these learning platforms
       </h2>

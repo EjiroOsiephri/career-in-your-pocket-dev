@@ -61,7 +61,7 @@ const Carousel = () => {
 
           {/* Text Content */}
           <div className="relative flex-1 flex md:block flex-col items-center pr-6 z-10">
-            <h2 className="text-xl text-center mb-6 md:text-left md:text-[40px] max-w-[80%] font-bold">
+            <h2 className="text-2xl text-center mb-6 md:text-left md:text-[40px] max-w-[95%] md:max-w-[80%] font-bold">
               {slides[index].title}
             </h2>
             <p className="text-sm text-center mb-4 md:text-left md:text-[24px] mt-2">

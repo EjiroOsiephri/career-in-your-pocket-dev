@@ -34,8 +34,10 @@ const courses = [
 
 const RecommendedCourses = () => {
   return (
-    <div className="px-6 lg:ml-72 py-4">
-      <h2 className="text-2xl font-bold mb-4">Recommended Courses</h2>
+    <div className="px-6 lg:ml-72 py-8">
+      <h2 className="text-2xl md:text-left text-center font-bold text-black mb-4">
+        Recommended Courses
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {courses.map((course, index) => (
           <div
