@@ -1,5 +1,6 @@
 import Carousel from "@/components/Carousel";
 import Navbar from "@/components/NavBar";
+import RecommendedCourses from "@/components/RecommendedCourses";
 import Sidebar from "@/components/SideBar";
 import React from "react";
 
@@ -11,6 +12,7 @@ const dashboard = () => {
         {/* Sidebar width + padding for navbar */}
         <Navbar />
         <Carousel />
+        <RecommendedCourses />
       </div>
     </div>
   );
