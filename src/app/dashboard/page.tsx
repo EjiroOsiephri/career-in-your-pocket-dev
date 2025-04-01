@@ -5,9 +5,10 @@ import React from "react";
 
 const dashboard = () => {
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex  min-h-screen bg-white">
       <Sidebar />
-      <div className="flex-1 scroll-auto">
+      <div className="flex-1 pt-8">
+        {/* Sidebar width + padding for navbar */}
         <Navbar />
         <Carousel />
       </div>

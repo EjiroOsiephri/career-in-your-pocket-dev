@@ -25,7 +25,7 @@ const Sidebar = () => {
       <AnimatePresence>
         {isOpen && isMobile && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            className="fixed inset-0 bg-black bg-opacity-50 "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -39,7 +39,7 @@ const Sidebar = () => {
         initial={{ x: "-100%" }}
         animate={{ x: isOpen || !isMobile ? 0 : "-100%" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="fixed top-0 left-0 h-full text-[#191B1E] bg-white shadow-lg p-4 flex flex-col gap-6 z-50 w-[100vw] md:w-72"
+        className="fixed top-0 left-0 h-full text-[#191B1E] bg-white shadow-lg p-4 flex flex-col gap-6 z-[150] w-[100vw] md:w-72"
       >
         {/* Close Button (Only on Mobile) */}
         {isMobile && (
@@ -97,7 +97,7 @@ const Sidebar = () => {
 
       {/* Mobile Toggle Button */}
       {isMobile && (
-        <div className="fixed top-4 left-4 z-50">
+        <div className="fixed top-4 left-4 z-[100]">
           {!isOpen && (
             <FaBars
               className="text-2xl text-[#191B1E] cursor-pointer"
@@ -128,7 +128,7 @@ const SidebarItem = ({
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
-      className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all 
+      className={`flex items-center gap-4 p-3  rounded-lg cursor-pointer transition-all 
         ${
           active
             ? "bg-[#A1CCE5] text-white"
