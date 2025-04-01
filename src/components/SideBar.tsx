@@ -37,7 +37,7 @@ const Sidebar = () => {
         initial={{ x: "-100%" }}
         animate={{ x: isOpen || !isMobile ? 0 : "-100%" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className={`fixed top-0 left-0 h-full text-[#191B1E] bg-white shadow-lg p-4 flex flex-col gap-6 z-50 w-64`}
+        className={`fixed top-0 left-0 h-full text-[#191B1E] bg-white shadow-lg p-4 flex flex-col gap-6 z-50 w-[100vw] md:w-72`}
       >
         {/* Close Button (Only on Mobile) */}
         {isMobile && (
@@ -79,10 +79,12 @@ const Sidebar = () => {
       {/* Mobile Toggle Button */}
       {isMobile && (
         <div className="fixed top-4 left-4 z-50">
-          <FaBars
-            className="text-2xl cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
-          />
+          {!isOpen && (
+            <FaBars
+              className="text-2xl text-[#191B1E] cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          )}
         </div>
       )}
     </>
@@ -101,20 +103,26 @@ const SidebarItem = ({
   active?: boolean;
   extra?: React.ReactNode;
   className?: string;
-}) => (
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all 
-      ${
-        active
-          ? "bg-[#A1CCE5] text-white"
-          : "hover:bg-[#A1CCE5] hover:text-white"
-      } ${className}`}
-  >
-    {icon}
-    <span>{label}</span>
-    {extra}
-  </motion.div>
-);
+}) => {
+  const isLogout = label === "Logout"; // Check if it's the Logout item
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all 
+        ${
+          active
+            ? "bg-[#A1CCE5] text-white"
+            : isLogout
+            ? "text-red-500 hover:bg-red-100" // Keep text red, but add subtle hover bg
+            : "hover:bg-[#A1CCE5] hover:text-white"
+        } ${className}`}
+    >
+      {icon}
+      <span>{label}</span>
+      {extra}
+    </motion.div>
+  );
+};
 
 export default Sidebar;
