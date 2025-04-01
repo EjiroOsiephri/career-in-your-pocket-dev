@@ -78,7 +78,7 @@ const Sidebar = () => {
           <SidebarItem
             icon={<FiSearch />}
             label="Find Jobs"
-            path="/find-jobs"
+            path="/jobs"
             active={pathname === "/find-jobs"}
           />
         </nav>
