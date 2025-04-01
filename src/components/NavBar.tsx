@@ -1,14 +1,25 @@
 "use client";
 
 import { FiSearch, FiBell, FiMoreVertical } from "react-icons/fi";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
+  const pathname = usePathname(); // Get current route
+
+  // Dynamic Title Logic
+  const getPageTitle = () => {
+    if (pathname === "/dashboard") return "Dashboard";
+    if (pathname === "/career") return "Career Map";
+    if (pathname === "/jobs") return "Find Jobs";
+    return "Dashboard"; // Default title
+  };
+
   return (
     <div className="fixed top-0 w-full md:left-[18rem] md:w-[calc(100%-17rem)] z-50 bg-white border-b-2 border-gray-300">
       <nav className="flex items-center justify-between text-[#191B1E] px-6 py-4">
-        {/* Left - Dashboard Title */}
+        {/* Left - Dynamic Title */}
         <div className="flex-1 lg:flex-none flex justify-center">
-          <h1 className="text-xl font-semibold">Dashboard</h1>
+          <h1 className="text-xl font-semibold">{getPageTitle()}</h1>
         </div>
 
         {/* Center - Search Bar (Hidden until 1440px) */}
