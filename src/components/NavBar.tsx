@@ -5,7 +5,7 @@ import { FiSearch, FiBell, FiMoreVertical } from "react-icons/fi";
 const NavBar = () => {
   return (
     <div className="flex-1 lg:ml-72">
-      <nav className="flex items-center justify-between text-[#191B1E] px-6 py-4 bg-white border-b-2 border-gray-400">
+      <nav className="flex items-center justify-between text-[#191B1E] px-6 py-4 bg-white border-b-2 border-gray-300">
         {/* Left - Dashboard Title */}
         <div className="flex-1 lg:flex-none flex justify-center">
           <h1 className="text-xl font-semibold">Dashboard</h1>
@@ -18,7 +18,7 @@ const NavBar = () => {
             <input
               type="text"
               placeholder="Search"
-              className="w-full pl-10 pr-4 py-2 rounded-lg border bg-gray-100 focus:outline-none"
+              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 bg-gray-100 focus:outline-none"
             />
           </div>
         </div>
@@ -27,7 +27,7 @@ const NavBar = () => {
         <div className="flex items-center gap-6">
           {/* Notification Icon */}
           <div className="relative cursor-pointer">
-            <FiBell className="text-2xl" />
+            <FiBell className="text-3xl text-[#A1CCE5]" />
             <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
           </div>
 

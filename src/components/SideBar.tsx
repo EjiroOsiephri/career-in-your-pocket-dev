@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation"; // Get current route
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGrid, FiSearch, FiSettings, FiLogOut } from "react-icons/fi";
 import { MdMap } from "react-icons/md";
@@ -9,6 +10,7 @@ import { FaBars } from "react-icons/fa";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname(); // Get current route
 
   useEffect(() => {
     const updateView = () => setIsMobile(window.innerWidth < 1024);
@@ -37,7 +39,7 @@ const Sidebar = () => {
         initial={{ x: "-100%" }}
         animate={{ x: isOpen || !isMobile ? 0 : "-100%" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className={`fixed top-0 left-0 h-full text-[#191B1E] bg-white shadow-lg p-4 flex flex-col gap-6 z-50 w-[100vw] md:w-72`}
+        className="fixed top-0 left-0 h-full text-[#191B1E] bg-white shadow-lg p-4 flex flex-col gap-6 z-50 w-[100vw] md:w-72"
       >
         {/* Close Button (Only on Mobile) */}
         {isMobile && (
@@ -51,23 +53,40 @@ const Sidebar = () => {
 
         {/* Navigation Items */}
         <nav className="flex flex-col gap-4 mt-10">
-          <SidebarItem icon={<FiGrid />} label="Dashboard" />
+          <SidebarItem
+            icon={<FiGrid />}
+            label="Dashboard"
+            active={pathname === "/dashboard"}
+          />
           <SidebarItem
             icon={<MdMap />}
             label="Career Map"
-            active
+            active={pathname === "/career-map"}
             extra={
-              <span className="ml-auto text-xs bg-gray-300 rounded-full px-2">
+              <span
+                className="ml-auto text-xs text-white rounded-full px-2 py-1"
+                style={{
+                  background: "linear-gradient(to right, #A1CCE5, #637F59)",
+                }}
+              >
                 AI
               </span>
             }
           />
-          <SidebarItem icon={<FiSearch />} label="Find Jobs" />
+          <SidebarItem
+            icon={<FiSearch />}
+            label="Find Jobs"
+            active={pathname === "/find-jobs"}
+          />
         </nav>
 
         {/* Settings & Logout */}
         <div className="mt-auto flex flex-col gap-4">
-          <SidebarItem icon={<FiSettings />} label="Settings" />
+          <SidebarItem
+            icon={<FiSettings />}
+            label="Settings"
+            active={pathname === "/settings"}
+          />
           <SidebarItem
             icon={<FiLogOut />}
             label="Logout"
@@ -114,7 +133,7 @@ const SidebarItem = ({
           active
             ? "bg-[#A1CCE5] text-white"
             : isLogout
-            ? "text-red-500 hover:bg-red-100" // Keep text red, but add subtle hover bg
+            ? "text-red-500 hover:bg-red-100"
             : "hover:bg-[#A1CCE5] hover:text-white"
         } ${className}`}
     >
