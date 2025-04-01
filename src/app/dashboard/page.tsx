@@ -7,7 +7,7 @@ const dashboard = () => {
   return (
     <div className="flex min-h-screen bg-white">
       <Sidebar />
-      <div className="flex-1">
+      <div className="flex-1 scroll-auto">
         <Navbar />
         <Carousel />
       </div>
