@@ -39,7 +39,7 @@ const Carousel = () => {
   }, []);
 
   return (
-    <div className="relative lg:ml-72 md:pl-7 p-4 md:pr-7 pt-20 md:pt-28 mx-auto">
+    <div className="relative lg:ml-72 md:pl-7 p-4 md:pr-7 pt-20 md:pt-20 mx-auto">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
