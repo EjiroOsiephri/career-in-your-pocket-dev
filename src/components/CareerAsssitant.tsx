@@ -68,7 +68,7 @@ const CareerAssistant = () => {
       {/* Dropdown Form */}
       <motion.div
         variants={containerVariants}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full max-w-2xl mb-24"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full max-w-2xl mb-24 relative z-10"
       >
         <CustomDropdown label="Educational level" options={options} />
         <CustomDropdown label="Career interests" options={options} />
@@ -81,7 +81,7 @@ const CareerAssistant = () => {
       {/* Chat Input (Fixed to Bottom) */}
       <motion.div
         variants={itemVariants}
-        className="fixed bottom-4 w-full max-w-lg px-4"
+        className="fixed bottom-4 w-full max-w-lg px-2 md:px-4 z-30"
       >
         <motion.div
           whileHover={{ scale: 1.02 }}
@@ -99,13 +99,13 @@ const CareerAssistant = () => {
             className="flex-1 px-4 bg-transparent focus:outline-none text-gray-600"
           />
           <motion.button
-            whileHover={{ scale: 1.2 }}
-            className="text-[#A1CCE5] text-xl mr-3"
+            whileHover={{ scale: 1.05 }}
+            className="text-[#A1CCE5] text-xl -ml-9 md:-ml-[initial] md:mr-4 mr-2"
           >
             <FaMicrophone />
           </motion.button>
           <motion.button
-            whileHover={{ scale: 1.2 }}
+            whileHover={{ scale: 1.05 }}
             className="text-[#A1CCE5] text-xl"
           >
             <FiSend />
@@ -129,7 +129,7 @@ const CustomDropdown = ({ label, options }: DropdownProps) => {
     <motion.div
       variants={itemVariants}
       whileHover={{ scale: 1.05 }}
-      className="w-full relative z-20"
+      className="w-full relative text-black"
     >
       <label className="block text-gray-700 text-sm font-medium mb-1">
         {label}
@@ -149,7 +149,7 @@ const CustomDropdown = ({ label, options }: DropdownProps) => {
         <motion.ul
           initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-50"
+          className="absolute w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-50 overflow-hidden"
         >
           {options.map((option, index) => (
             <li
