@@ -3,6 +3,7 @@ import Navbar from "@/components/NavBar";
 import RecommendedCourses from "@/components/RecommendedCourses";
 import Sidebar from "@/components/SideBar";
 import React from "react";
+import LearningPlatforms from "@/components/LearningPlatforms";
 
 const dashboard = () => {
   return (
@@ -13,6 +14,7 @@ const dashboard = () => {
         <Navbar />
         <Carousel />
         <RecommendedCourses />
+        <LearningPlatforms />
       </div>
     </div>
   );
