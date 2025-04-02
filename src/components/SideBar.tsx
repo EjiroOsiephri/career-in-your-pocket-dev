@@ -139,8 +139,12 @@ const SidebarItem = ({
   onClick,
 }: SidebarItemProps) => {
   const router = useRouter();
+  const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
+    setClicked(true);
+    setTimeout(() => setClicked(false), 200); // Reset after 200ms
+
     if (isLogout && onClick) {
       onClick(); // Trigger modal
       return;
@@ -153,14 +157,15 @@ const SidebarItem = ({
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
-      className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all 
+      className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all duration-150 
         ${
           active
             ? "bg-[#A1CCE5] text-white"
             : isLogout
             ? "text-red-500 hover:bg-red-100"
             : "hover:bg-[#A1CCE5] hover:text-white"
-        }`}
+        } 
+        ${clicked ? "bg-[#A1CCE5] text-white" : ""} // Click effect`}
       onClick={handleClick}
     >
       {icon}
