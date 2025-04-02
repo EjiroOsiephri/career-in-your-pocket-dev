@@ -103,7 +103,7 @@ const Sidebar = () => {
 
       {/* Mobile Toggle Button */}
       {isMobile && (
-        <div className="fixed top-4 left-4 z-[100]">
+        <div className="fixed top-4 left-4 z-[1000]">
           {!isOpen && (
             <FaBars
               className="text-2xl text-[#191B1E] cursor-pointer"

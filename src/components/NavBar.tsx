@@ -15,7 +15,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="fixed top-0 w-full md:left-[18rem] md:w-[calc(100%-17rem)] z-50 bg-white border-b-2 border-gray-300">
+    <div className="fixed top-0 w-full md:left-[18rem] md:w-[calc(100%-17rem)] z-[100] bg-white border-b-2 border-gray-300">
       <nav className="flex items-center justify-between text-[#191B1E] px-6 py-4">
         {/* Left - Dynamic Title */}
         <div className="flex-1 lg:flex-none flex justify-center">
