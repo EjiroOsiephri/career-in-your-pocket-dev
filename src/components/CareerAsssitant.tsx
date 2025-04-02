@@ -164,8 +164,8 @@ const CustomDropdown = ({ label, options }: DropdownProps) => {
         <motion.ul
           initial={{ opacity: 0, y: openUpwards ? 5 : -5 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`absolute w-full bg-white border border-gray-300 rounded-md shadow-lg z-50 overflow-hidden 
-            ${openUpwards ? "bottom-full mb-1" : "mt-1"}`}
+          className={`absolute w-full bg-white border border-gray-300 rounded-md shadow-lg z-[100] overflow-visible 
+      ${openUpwards ? "bottom-full mb-1" : "mt-1"}`}
         >
           {options.map((option, index) => (
             <li
