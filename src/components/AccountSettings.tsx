@@ -14,16 +14,16 @@ export default function AccountSettings() {
 
   return (
     <motion.div
-      className="lg:ml-72 min-h-screen  flex-1 bg-white rounded-lg overflow-hidden relative"
+      className="lg:ml-72 min-h-screen flex-1 bg-white rounded-lg overflow-hidden relative"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
     >
       {/* Profile Header */}
-      <div className="relative bg-[#A1CCE5] mb-28 h-48">
+      <div className="relative bg-[#A1CCE5] mb-28 h-48 md:h-64">
         {/* Profile Image */}
         <motion.div
-          className="absolute left-6 -bottom-12 w-24 h-24 rounded-full overflow-hidden border-4 border-white"
+          className="absolute left-6 -bottom-12 w-24 h-24 rounded-full overflow-hidden border-4 border-white md:w-32 md:h-32"
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
@@ -33,20 +33,20 @@ export default function AccountSettings() {
             alt="Profile"
             width={96}
             height={96}
-            className="object-cover"
+            className="object-cover md:w-full md:h-full"
           />
         </motion.div>
 
         {/* Name & Email (Left Side) */}
-        <div className="absolute left-32 top-52 bottom-4">
-          <h2 className="text-lg font-semibold  text-black">Idris Gabriel</h2>
+        <div className="absolute left-32 top-52 md:top-64 bottom-4 md:left-40">
+          <h2 className="text-lg font-semibold text-black">Idris Gabriel</h2>
           <p className="text-sm text-gray-600">idrisgabriel@gmail.com</p>
         </div>
 
         {/* Edit Profile Button (Right Side) */}
-        <div className="absolute bottom-4 ml-4 md:ml-[initial] top-[270px] sm:top-52 sm:right-6 right-6 ">
+        <div className="absolute bottom-4 ml-4 md:ml-[initial] top-[270px] sm:top-[259px] sm:right-6 right-6 md:right-10">
           <motion.button
-            className=" px-4 py-2 text-sm font-medium text-[#A1CCE5] border border-[#A1CCE5] rounded-lg hover:bg-[#A1CCE5] hover:text-white transition"
+            className="px-4 py-2 text-sm font-medium text-[#A1CCE5] border border-[#A1CCE5] rounded-lg hover:bg-[#A1CCE5] hover:text-white transition"
             whileTap={{ scale: 0.95 }}
             onClick={() => setEditMode(!editMode)}
           >
@@ -88,7 +88,7 @@ export default function AccountSettings() {
             </div>
 
             {/* Two-Factor Authentication */}
-            <div className="flex  items-center  justify-between">
+            <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-medium text-gray-700">
                   2 Factor Authentication
