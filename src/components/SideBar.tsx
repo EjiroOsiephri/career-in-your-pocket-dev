@@ -1,16 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation"; // Import router for navigation
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGrid, FiSearch, FiSettings, FiLogOut } from "react-icons/fi";
 import { MdMap } from "react-icons/md";
 import { FaBars } from "react-icons/fa";
+import Modal from "@/utils/modal"; // Import Modal
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false); // Move state here
   const pathname = usePathname();
-  const router = useRouter(); // Get router for navigation
+  const router = useRouter();
 
   useEffect(() => {
     const updateView = () => setIsMobile(window.innerWidth < 1024);
@@ -41,7 +43,6 @@ const Sidebar = () => {
         transition={{ duration: 0.4, ease: "easeInOut" }}
         className="fixed top-0 left-0 h-full text-[#191B1E] bg-white shadow-lg p-4 flex flex-col gap-6 z-[150] w-[100vw] md:w-72"
       >
-        {/* Close Button (Only on Mobile) */}
         {isMobile && (
           <button
             onClick={() => setIsOpen(false)}
@@ -79,7 +80,7 @@ const Sidebar = () => {
             icon={<FiSearch />}
             label="Find Jobs"
             path="/jobs"
-            active={pathname === "/find-jobs"}
+            active={pathname === "/jobs"}
           />
         </nav>
 
@@ -91,7 +92,12 @@ const Sidebar = () => {
             path="/settings"
             active={pathname === "/settings"}
           />
-          <SidebarItem icon={<FiLogOut />} label="Logout" isLogout />
+          <SidebarItem
+            icon={<FiLogOut />}
+            label="Logout"
+            isLogout
+            onClick={() => setShowLogoutModal(true)}
+          />
         </div>
       </motion.aside>
 
@@ -106,6 +112,9 @@ const Sidebar = () => {
           )}
         </div>
       )}
+
+      {/* Logout Modal */}
+      <Modal show={showLogoutModal} setShow={setShowLogoutModal} />
     </>
   );
 };
@@ -117,6 +126,7 @@ interface SidebarItemProps {
   active?: boolean;
   extra?: React.ReactNode;
   isLogout?: boolean;
+  onClick?: () => void;
 }
 
 const SidebarItem = ({
@@ -126,12 +136,13 @@ const SidebarItem = ({
   active,
   extra,
   isLogout = false,
+  onClick,
 }: SidebarItemProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    if (isLogout) {
-      alert("Logging out...");
+    if (isLogout && onClick) {
+      onClick(); // Trigger modal
       return;
     }
     if (path) {
