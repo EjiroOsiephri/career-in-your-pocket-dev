@@ -68,7 +68,7 @@ const CareerAssistant = () => {
       {/* Dropdown Form */}
       <motion.div
         variants={containerVariants}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full max-w-2xl mb-24 relative z-10"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full max-w-2xl mb-24 relative z-50"
       >
         <CustomDropdown label="Educational level" options={options} />
         <CustomDropdown label="Career interests" options={options} />
@@ -121,12 +121,26 @@ interface DropdownProps {
   options: string[];
 }
 
+import { useRef } from "react";
+
 const CustomDropdown = ({ label, options }: DropdownProps) => {
   const [selected, setSelected] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);
+  const [openUpwards, setOpenUpwards] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleToggle = () => {
+    if (dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      setOpenUpwards(spaceBelow < 150); // Open upwards if less than 150px space below
+    }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <motion.div
+      ref={dropdownRef}
       variants={itemVariants}
       whileHover={{ scale: 1.05 }}
       className="w-full relative text-black"
@@ -135,8 +149,8 @@ const CustomDropdown = ({ label, options }: DropdownProps) => {
         {label}
       </label>
       <div
-        className="w-full border border-gray-300 rounded-md p-3 text-gray-600 bg-white focus:outline-none flex justify-between items-center cursor-pointer"
-        onClick={() => setIsOpen(!isOpen)}
+        className="w-full border border-gray-300 rounded-md p-3 text-gray-600 bg-white flex justify-between items-center cursor-pointer"
+        onClick={handleToggle}
       >
         {selected}
         <IoIosArrowDown
@@ -145,11 +159,13 @@ const CustomDropdown = ({ label, options }: DropdownProps) => {
           }`}
         />
       </div>
+
       {isOpen && (
         <motion.ul
-          initial={{ opacity: 0, y: -5 }}
+          initial={{ opacity: 0, y: openUpwards ? 5 : -5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-50 overflow-hidden"
+          className={`absolute w-full bg-white border border-gray-300 rounded-md shadow-lg z-50 overflow-hidden 
+            ${openUpwards ? "bottom-full mb-1" : "mt-1"}`}
         >
           {options.map((option, index) => (
             <li
