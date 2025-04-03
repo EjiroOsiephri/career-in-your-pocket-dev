@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { FiSend } from "react-icons/fi";
 import { FaMicrophone } from "react-icons/fa";
@@ -26,14 +26,13 @@ const CareerAssistant = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="min-h-screen flex flex-col items-center lg:ml-72 justify-start px-4 pt-12 pb-6 md:pt-20 bg-gradient-to-br from-[#EEF7FE] to-[#F8FAFC] relative"
+      className="min-h-screen flex flex-col items-center lg:ml-72 justify-start px-4 pt-12 pb-6 md:pt-20 bg-gradient-to-br from-[#EEF7FE] to-[#F8FAFC] relative z-0"
     >
       {/* Header Section */}
       <motion.div
         variants={itemVariants}
         className="w-full flex justify-between px-6 mb-4"
       >
-        {/* AI Powered Label */}
         <span className="flex items-center text-sm text-gray-500">
           Powered by{" "}
           <span
@@ -45,8 +44,6 @@ const CareerAssistant = () => {
             AI
           </span>
         </span>
-
-        {/* History Icon */}
         <BiHistory className="text-gray-500 text-xl cursor-pointer" />
       </motion.div>
 
@@ -68,14 +65,18 @@ const CareerAssistant = () => {
       {/* Dropdown Form */}
       <motion.div
         variants={containerVariants}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full max-w-2xl mb-24 relative z-50"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full max-w-2xl mb-24 relative z-10"
       >
-        <CustomDropdown label="Educational level" options={options} />
-        <CustomDropdown label="Career interests" options={options} />
-        <CustomDropdown label="Field of study" options={options} />
-        <CustomDropdown label="Current skills" options={options} />
-        <CustomDropdown label="Employment status" options={options} />
-        <CustomDropdown label="Years of experience" options={options} />
+        <CustomDropdown label="Educational level" options={options} index={0} />
+        <CustomDropdown label="Career interests" options={options} index={1} />
+        <CustomDropdown label="Field of study" options={options} index={2} />
+        <CustomDropdown label="Current skills" options={options} index={3} />
+        <CustomDropdown label="Employment status" options={options} index={4} />
+        <CustomDropdown
+          label="Years of experience"
+          options={options}
+          index={5}
+        />
       </motion.div>
 
       {/* Chat Input (Fixed to Bottom) */}
@@ -119,22 +120,15 @@ const CareerAssistant = () => {
 interface DropdownProps {
   label: string;
   options: string[];
+  index: number;
 }
 
-import { useRef } from "react";
-
-const CustomDropdown = ({ label, options }: DropdownProps) => {
+const CustomDropdown = ({ label, options, index }: DropdownProps) => {
   const [selected, setSelected] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [openUpwards, setOpenUpwards] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleToggle = () => {
-    if (dropdownRef.current) {
-      const rect = dropdownRef.current.getBoundingClientRect();
-      const spaceBelow = window.innerHeight - rect.bottom;
-      setOpenUpwards(spaceBelow < 150); // Open upwards if less than 150px space below
-    }
     setIsOpen(!isOpen);
   };
 
@@ -143,7 +137,7 @@ const CustomDropdown = ({ label, options }: DropdownProps) => {
       ref={dropdownRef}
       variants={itemVariants}
       whileHover={{ scale: 1.05 }}
-      className="w-full relative text-black"
+      className="w-full relative z-20 text-black"
     >
       <label className="block text-gray-700 text-sm font-medium mb-1">
         {label}
@@ -162,14 +156,13 @@ const CustomDropdown = ({ label, options }: DropdownProps) => {
 
       {isOpen && (
         <motion.ul
-          initial={{ opacity: 0, y: openUpwards ? 5 : -5 }}
+          initial={{ opacity: 0, y: 5 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`absolute w-full bg-white border border-gray-300 rounded-md shadow-lg z-[100] overflow-visible 
-      ${openUpwards ? "bottom-full mb-1" : "mt-1"}`}
+          className="absolute w-full bg-white border border-gray-300 rounded-md shadow-lg z-[10000] overflow-visible bottom-full -mb-4"
         >
-          {options.map((option, index) => (
+          {options.map((option, idx) => (
             <li
-              key={index}
+              key={idx}
               className="p-3 hover:bg-blue-100 cursor-pointer"
               onClick={() => {
                 setSelected(option);
